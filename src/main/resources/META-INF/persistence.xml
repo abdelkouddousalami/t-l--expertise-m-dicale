@@ -3,7 +3,48 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
              version="3.2">
-    <persistence-unit name="default">
+    <persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <!-- Entity classes -->
+        <class>com.example.medicale.entity.User</class>
+        <class>com.example.medicale.entity.Patient</class>
+        <class>com.example.medicale.entity.Consultation</class>
+        <class>com.example.medicale.entity.ExpertiseRequest</class>
+        <class>com.example.medicale.entity.MedicalAct</class>
+        <class>com.example.medicale.entity.Slot</class>
+        <class>com.example.medicale.entity.SpecialistProfile</class>
+        <class>com.example.medicale.entity.VitalSigns</class>
+        
+        <properties>
+            <!-- Database connection properties -->
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/medicale_db?createDatabaseIfNotExist=true&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
 
+            <!-- Hibernate properties -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+
+            <!-- IMPORTANT: create-drop créera automatiquement toutes les tables au démarrage -->
+            <!-- et les supprimera à l'arrêt. Utilisez "update" en production -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!-- Afficher les requêtes SQL dans la console -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            
+            <!-- Afficher les commentaires SQL -->
+            <property name="hibernate.use_sql_comments" value="true"/>
+
+            <!-- Connection pool settings -->
+            <property name="hibernate.connection.pool_size" value="10"/>
+            
+            <!-- Enable second-level cache -->
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+
+            <!-- Auto quote keywords -->
+            <property name="hibernate.auto_quote_keyword" value="true"/>
+        </properties>
     </persistence-unit>
 </persistence>

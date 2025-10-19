@@ -199,10 +199,28 @@ public class GeneralisteServlet extends HttpServlet {
         Long consultationId = Long.parseLong(request.getParameter("consultationId"));
         String speciality = request.getParameter("speciality");
 
-        List<SpecialistProfile> specialists = generalisteService.findSpecialistsBySpeciality(speciality);
+        // Get all users with SPECIALISTE role
+        List<User> specialistUsers = generalisteService.getAllSpecialistUsers();
+        // Also get specialist profiles for additional info
+        List<SpecialistProfile> specialists = generalisteService.getAllSpecialists();
+
+        // Debug logging
+        System.out.println("[DEBUG] Expertise request for consultation ID: " + consultationId);
+        System.out.println("[DEBUG] Requested speciality: " + speciality);
+        System.out.println("[DEBUG] Found specialist users: " + specialistUsers.size());
+        System.out.println("[DEBUG] Found specialist profiles: " + specialists.size());
+        
+        if (specialistUsers.isEmpty()) {
+            System.out.println("[WARNING] No users with SPECIALISTE role found!");
+        } else {
+            for (User user : specialistUsers) {
+                System.out.println("[DEBUG] Specialist user: " + user.getFullName() + " (ID: " + user.getId() + ")");
+            }
+        }
 
         request.setAttribute("consultationId", consultationId);
         request.setAttribute("speciality", speciality);
+        request.setAttribute("specialistUsers", specialistUsers);
         request.setAttribute("specialists", specialists);
 
         request.getRequestDispatcher("/jsp/generaliste/expertise-request.jsp").forward(request, response);

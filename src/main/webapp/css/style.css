@@ -641,3 +641,140 @@ footer {
         padding: 24px 20px;
     }
 }
+
+/* Calendar Specific Styles */
+.calendar-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.calendar-nav button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calendar-nav button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.view-toggle {
+    display: flex;
+    background: #edf2f7;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.view-toggle button {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+}
+
+.view-toggle button.active {
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #2d3748;
+}
+
+.event-item {
+    background: #4299e1;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.event-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-item.consultation {
+    background: #48bb78;
+}
+
+.event-item.expertise_request {
+    background: #ed8936;
+}
+
+.event-item.unavailable {
+    background: #e53e3e;
+}
+
+.event-item.personal_appointment {
+    background: #9f7aea;
+}
+
+.event-item.break {
+    background: #718096;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: #f7fafc;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid #4299e1;
+    transition: all 0.2s;
+}
+
+.stat-card:hover {
+    background: #edf2f7;
+    transform: translateY(-2px);
+}
+
+.stat-card.consultations {
+    border-left-color: #48bb78;
+}
+
+.stat-card.expertise {
+    border-left-color: #ed8936;
+}
+
+.stat-card.today {
+    border-left-color: #9f7aea;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #718096;
+    margin-top: 4px;
+}

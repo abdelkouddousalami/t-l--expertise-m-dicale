@@ -15,6 +15,7 @@
         <class>com.example.medicale.entity.Slot</class>
         <class>com.example.medicale.entity.SpecialistProfile</class>
         <class>com.example.medicale.entity.VitalSigns</class>
+        <class>com.example.medicale.entity.CalendarEvent</class>
         
         <properties>
             <!-- Database connection properties -->

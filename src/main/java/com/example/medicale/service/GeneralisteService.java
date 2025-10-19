@@ -3,6 +3,7 @@ package com.example.medicale.service;
 import com.example.medicale.dao.*;
 import com.example.medicale.entity.*;
 import com.example.medicale.enums.ConsultationStatus;
+import com.example.medicale.enums.Role;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ public class GeneralisteService {
     private SlotDao slotDao;
     private ExpertiseRequestDao expertiseRequestDao;
     private PatientQueueDao patientQueueDao;
+    private UserDao userDao;
 
     public GeneralisteService() {
         this.patientDao = new PatientDao();
@@ -28,6 +30,7 @@ public class GeneralisteService {
         this.slotDao = new SlotDao();
         this.expertiseRequestDao = new ExpertiseRequestDao();
         this.patientQueueDao = new PatientQueueDao();
+        this.userDao = new UserDao();
     }
 
     public List<Patient> getAllPatients() {
@@ -70,6 +73,19 @@ public class GeneralisteService {
 
     public List<SpecialistProfile> findSpecialistsBySpeciality(String speciality) {
         return specialistProfileDao.findBySpeciality(speciality);
+    }
+
+    public List<SpecialistProfile> getAllSpecialists() {
+        return specialistProfileDao.findAll();
+    }
+
+    public List<User> getAllSpecialistUsers() {
+        List<User> users = userDao.findByRole(Role.SPECIALISTE);
+        System.out.println("[DEBUG] GeneralisteService.getAllSpecialistUsers() - Found " + users.size() + " users with SPECIALISTE role");
+        for (User user : users) {
+            System.out.println("[DEBUG] - User: " + user.getFullName() + " (ID: " + user.getId() + ", Username: " + user.getUsername() + ")");
+        }
+        return users;
     }
 
     public List<Slot> getAvailableSlots(Long specialistId) {

@@ -13,9 +13,12 @@ import com.example.medicale.enums.ConsultationStatus;
 import com.example.medicale.enums.Priority;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SpecialisteService {
@@ -24,12 +27,14 @@ public class SpecialisteService {
     private SlotDao slotDao;
     private ExpertiseRequestDao expertiseRequestDao;
     private ConsultationDao consultationDao;
+    private CalendarService calendarService;
 
     public SpecialisteService() {
         this.specialistProfileDao = new SpecialistProfileDao();
         this.slotDao = new SlotDao();
         this.expertiseRequestDao = new ExpertiseRequestDao();
         this.consultationDao = new ConsultationDao();
+        this.calendarService = new CalendarService();
     }
 
     public void createOrUpdateProfile(SpecialistProfile profile) {
@@ -163,5 +168,23 @@ public class SpecialisteService {
         return expertiseRequestDao.findBySpecialistId(specialistId).stream()
                 .filter(request -> request.getPriority() == Priority.URGENTE)
                 .count();
+    }
+
+    // Méthodes pour le calendrier
+
+    public Map<String, Object> getMonthlyCalendar(Long specialistId, YearMonth yearMonth) {
+        return calendarService.generateMonthlyCalendarView(specialistId, yearMonth);
+    }
+
+    public Map<String, Object> getWeeklyCalendar(Long specialistId, LocalDate weekStart) {
+        return calendarService.generateWeeklyCalendarView(specialistId, weekStart);
+    }
+
+    public Map<String, Object> getCalendarStatistics(Long specialistId) {
+        return calendarService.getCalendarStatistics(specialistId);
+    }
+
+    public void syncCalendarWithSlots(Long specialistId) {
+        calendarService.syncSlotsWithCalendar(specialistId);
     }
 }
